@@ -38,6 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // FAQ Toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all
+            faqItems.forEach(i => i.classList.remove('active'));
+            
+            // Open clicked if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
     // Scroll reveal animation (simple version)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -48,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-card, .about-content, .contact-card').forEach(el => {
+    document.querySelectorAll('.service-card, .about-content, .contact-card, .testimonial-card, .faq-item').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.6s ease-out';

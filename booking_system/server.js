@@ -24,6 +24,36 @@ app.post('/api/reservas', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Invalid fields format' });
     }
 
+    // Date Format validation: YYYY-MM-DD
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return res.status(400).json({ success: false, error: 'Date must be in YYYY-MM-DD format' });
+    }
+
+    // Valid calendar date check
+    const dateParts = date.split('-');
+    const year = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10);
+    const day = parseInt(dateParts[2], 10);
+    if (month < 1 || month > 12) {
+      return res.status(400).json({ success: false, error: 'Invalid date values' });
+    }
+    const calendarDate = new Date(year, month - 1, day);
+    if (calendarDate.getFullYear() !== year || 
+        (calendarDate.getMonth() + 1) !== month || 
+        calendarDate.getDate() !== day) {
+      return res.status(400).json({ success: false, error: 'Invalid calendar date' });
+    }
+
+    // Past Date check: compare date < new Date().toISOString().split('T')[0]
+    if (date < new Date().toISOString().split('T')[0]) {
+      return res.status(400).json({ success: false, error: 'Booking date cannot be in the past' });
+    }
+
+    // Phone number format validation: allow digits, spaces, hyphens, and leading +, limit length to 20
+    if (!/^\+?[0-9\s\-]{3,20}$/.test(phone)) {
+      return res.status(400).json({ success: false, error: 'Invalid phone number format' });
+    }
+
     const allowedSlots = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
     if (!allowedSlots.includes(time)) {
       return res.status(400).json({ success: false, error: 'Invalid slot time selected. Must be one of the allowed operating slots.' });
@@ -43,7 +73,10 @@ app.post('/api/reservas', async (req, res) => {
 // GET /admin/citas
 app.get('/admin/citas', async (req, res) => {
   try {
-    const { date } = req.query;
+    let date = req.query.date;
+    if (Array.isArray(date)) {
+      date = date[0];
+    }
     let bookings;
     if (date) {
       bookings = await db.getBookings(date);
@@ -59,7 +92,10 @@ app.get('/admin/citas', async (req, res) => {
 // GET /api/disponibilidad
 app.get('/api/disponibilidad', async (req, res) => {
   try {
-    const { date } = req.query;
+    let date = req.query.date;
+    if (Array.isArray(date)) {
+      date = date[0];
+    }
     if (!date) {
       return res.status(400).json({ success: false, error: 'Missing date parameter' });
     }

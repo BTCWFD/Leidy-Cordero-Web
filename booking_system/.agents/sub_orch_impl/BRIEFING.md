@@ -29,10 +29,10 @@ Build and implement the clinic booking system matching requirements and interfac
   - Milestone 1: Backend Scaffolding & DB [done]
   - Milestone 2: Patient UI & Booking Endpoint [done]
   - Milestone 3: Admin Dashboard & API [done]
-  - Milestone 4: E2E Integration & Verification [in-progress]
-  - Milestone 5: Adversarial Hardening (Tier 5) [pending]
+  - Milestone 4: E2E Integration & Verification [done]
+  - Milestone 5: Adversarial Hardening (Tier 5) [in-progress]
 - **Current phase**: 2B (Iteration Loop)
-- **Current focus**: Milestone 4
+- **Current focus**: Milestone 5
 
 ## 🔒 Key Constraints
 - Wait for TEST_READY.md to be created before proceeding to Milestone 4.
@@ -41,8 +41,8 @@ Build and implement the clinic booking system matching requirements and interfac
 - Hard veto on integrity audit violations.
 
 ## Current Parent
-- Conversation ID: cceeb905-1e53-4f60-8c08-c00fe105d4cb
-- Updated: 2026-06-30T19:00:00Z
+- Conversation ID: 8255e7e7-c891-471a-a4b9-0abbfbe5e3d4
+- Updated: 2026-06-30T21:51:51Z
 
 ## Key Decisions Made
 - [TBD]
@@ -73,12 +73,25 @@ Build and implement the clinic booking system matching requirements and interfac
 | explorer_m4_2 | teamwork_preview_explorer | Milestone 4 Exploration | completed | edc6a48b-cf23-42d3-8ac4-5a042cdb046e |
 | explorer_m4_3 | teamwork_preview_explorer | Milestone 4 Exploration | completed | e130e7c2-3177-4735-80b1-24c6320156c5 |
 | worker_m4 | teamwork_preview_worker | Milestone 4 Hardening & Test | failed | d8986276-3e6b-4423-971c-04856f8af6d6 |
-| worker_m4_rep | teamwork_preview_worker | Milestone 4 Hardening & Test | in-progress | 0ba19f06-0df8-42e6-a8aa-eb1e3932a326 |
+| worker_m4_rep | teamwork_preview_worker | Milestone 4 Hardening & Test | completed | 0ba19f06-0df8-42e6-a8aa-eb1e3932a326 |
+| reviewer_m4_1 | teamwork_preview_reviewer | Milestone 4 Review | completed | e244704f-b103-4037-9254-52c1c2a1b0df |
+| reviewer_m4_2 | teamwork_preview_reviewer | Milestone 4 Review | completed | 8cb24bd0-04ac-4c3b-9637-34415ee51e60 |
+| challenger_m4_1 | teamwork_preview_challenger | Milestone 4 Concurrency check | completed | c6851c7c-5f93-4100-a802-d5b671010fe2 |
+| challenger_m4_2 | teamwork_preview_challenger | Milestone 4 Concurrency check | completed | ba63d956-cfe6-46a5-83fe-d7d4bb8fc6e2 |
+| auditor_m4 | teamwork_preview_auditor | Milestone 4 Integrity Audit | completed | 31eed43f-8dbc-45a9-9ade-0fe5f1f2787e |
+| challenger_m5_1 | teamwork_preview_challenger | Milestone 5 Adversarial Analysis | completed | fae978db-4b7c-41d6-81d7-18ef8ba92dc2 |
+| challenger_m5_2 | teamwork_preview_challenger | Milestone 5 Adversarial Analysis | completed | a178b304-67b5-4665-abe4-4197e0df58c1 |
+| worker_m5 | teamwork_preview_worker | Milestone 5 Adversarial Fixing | completed | 16aa146f-7d9b-4ad5-9d1f-70c7f561d5cf |
+| reviewer_m5_1 | teamwork_preview_reviewer | Milestone 5 Review | in-progress | 8fd42382-8d63-41ff-ac39-5f7195c7ec54 |
+| reviewer_m5_2 | teamwork_preview_reviewer | Milestone 5 Review | in-progress | db506e72-4645-4586-ba06-dda2908439d0 |
+| challenger_m5_3 | teamwork_preview_challenger | Milestone 5 Concurrency check | in-progress | 46143844-106d-4331-878e-0a2852876369 |
+| challenger_m5_4 | teamwork_preview_challenger | Milestone 5 Concurrency check | in-progress | befdb48f-fb22-4590-ab4b-ba8ecff4da15 |
+| auditor_m5 | teamwork_preview_auditor | Milestone 5 Integrity Audit | in-progress | 0db68b0d-3430-400e-b7a9-a53688de2214 |
 
 ## Succession Status
-- Succession required: no
-- Spawn count: 5 / 16
-- Pending subagents: 0ba19f06-0df8-42e6-a8aa-eb1e3932a326
+- Succession required: yes
+- Spawn count: 18 / 16
+- Pending subagents: 8fd42382-8d63-41ff-ac39-5f7195c7ec54, db506e72-4645-4586-ba06-dda2908439d0, 46143844-106d-4331-878e-0a2852876369, befdb48f-fb22-4590-ab4b-ba8ecff4da15, 0db68b0d-3430-400e-b7a9-a53688de2214
 - Predecessor: d0a1be54-3844-4847-a4d0-ba586ca4d067
 - Successor: not yet spawned
 

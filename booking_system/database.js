@@ -17,6 +17,9 @@ function initDb(dbPath) {
   return new Promise((resolve, reject) => {
     // Try SQLite first
     try {
+      if (process.env.FORCE_JSON_DB === 'true') {
+        throw new Error('Forced JSON mode via environment variable');
+      }
       const sqlite3 = require('sqlite3').verbose();
       ensureDir(dbPath);
       sqliteDb = new sqlite3.Database(dbPath, (err) => {
@@ -89,7 +92,18 @@ function getBookings(date) {
     return new Promise((resolve, reject) => {
       try {
         const data = fs.readFileSync(jsonDbPath, 'utf8');
-        const bookings = JSON.parse(data);
+        let bookings;
+        try {
+          bookings = JSON.parse(data);
+        } catch (parseErr) {
+          if (parseErr instanceof SyntaxError) {
+            console.warn('JSON database corrupted, resetting to empty array:', parseErr.message);
+            bookings = [];
+            fs.writeFileSync(jsonDbPath, JSON.stringify(bookings, null, 2), 'utf8');
+          } else {
+            throw parseErr;
+          }
+        }
         const filtered = bookings.filter(b => b.date === date);
         resolve(filtered);
       } catch (err) {
@@ -127,7 +141,18 @@ function addBooking(booking) {
     return new Promise((resolve, reject) => {
       try {
         const data = fs.readFileSync(jsonDbPath, 'utf8');
-        const bookings = JSON.parse(data);
+        let bookings;
+        try {
+          bookings = JSON.parse(data);
+        } catch (parseErr) {
+          if (parseErr instanceof SyntaxError) {
+            console.warn('JSON database corrupted, resetting to empty array:', parseErr.message);
+            bookings = [];
+            fs.writeFileSync(jsonDbPath, JSON.stringify(bookings, null, 2), 'utf8');
+          } else {
+            throw parseErr;
+          }
+        }
         
         // Enforce uniqueness
         const conflict = bookings.find(b => b.date === date && b.time === time);
@@ -163,7 +188,18 @@ function getAllBookings() {
     return new Promise((resolve, reject) => {
       try {
         const data = fs.readFileSync(jsonDbPath, 'utf8');
-        const bookings = JSON.parse(data);
+        let bookings;
+        try {
+          bookings = JSON.parse(data);
+        } catch (parseErr) {
+          if (parseErr instanceof SyntaxError) {
+            console.warn('JSON database corrupted, resetting to empty array:', parseErr.message);
+            bookings = [];
+            fs.writeFileSync(jsonDbPath, JSON.stringify(bookings, null, 2), 'utf8');
+          } else {
+            throw parseErr;
+          }
+        }
         bookings.sort((a, b) => {
           if (a.date !== b.date) {
             return a.date.localeCompare(b.date);

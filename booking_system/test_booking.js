@@ -1053,4 +1053,85 @@ test.describe('Quiropodia LC Booking System E2E Suite', () => {
       assert.strictEqual(booking.phone, specialPhone);
     });
   });
+
+  // =========================================================================
+  // TIER 5: ADVERSARIAL HARDENING (5 test cases)
+  // =========================================================================
+  test.describe('Tier 5: Adversarial Hardening', () => {
+
+    test('F-T5-1: Past Date Booking rejection', async () => {
+      const pastDate = '2020-01-01';
+      const res = await makeRequest('/api/reservas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'Past Patient', date: pastDate, time: '09:00', phone: '123-456' })
+      });
+      assert.strictEqual(res.status, 400);
+    });
+
+    test('F-T5-2: Malformed Date Format rejection', async () => {
+      const invalidDates = ['2026/10/10', '2026-13-01', '2026-10-32', 'invalid-date', '2026-02-30'];
+      for (const d of invalidDates) {
+        const res = await makeRequest('/api/reservas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: 'Malformed Date Patient', date: d, time: '10:00', phone: '123-456' })
+        });
+        assert.strictEqual(res.status, 400, `Should reject invalid date format/calendar value: ${d}`);
+      }
+    });
+
+    test('F-T5-3: Malformed Phone Number rejection', async () => {
+      const invalidPhones = ['12', 'abc', '+123456789012345678901', '123-abc-456', 'phone123'];
+      for (const p of invalidPhones) {
+        const res = await makeRequest('/api/reservas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: 'Malformed Phone Patient', date: '2026-12-01', time: '11:00', phone: p })
+        });
+        assert.strictEqual(res.status, 400, `Should reject invalid phone format: ${p}`);
+      }
+    });
+
+    test('F-T5-4: Array query parameter compatibility', async () => {
+      // Test GET /admin/citas with array query parameter
+      const resAdmin = await makeRequest('/admin/citas?date=2026-10-01&date=2026-10-02');
+      assert.strictEqual(resAdmin.status, 200);
+      assert.ok(Array.isArray(resAdmin.body));
+
+      // Test GET /api/disponibilidad with array query parameter
+      const resDisp = await makeRequest('/api/disponibilidad?date=2026-10-01&date=2026-10-02');
+      assert.strictEqual(resDisp.status, 200);
+      assert.ok(resDisp.body.success);
+      assert.strictEqual(resDisp.body.date, '2026-10-01');
+    });
+
+    test('F-T5-5: JSON corruption recovery', async () => {
+      // 1. Force server to run in JSON mode
+      stopServerOnly();
+      process.env.FORCE_JSON_DB = 'true';
+      await spawnServer(true); // cleans up existing files and spawns fresh JSON db
+
+      // 2. Write corrupted content to the database file
+      const paths = getPossibleDbPaths(DB_PATH);
+      const activePath = paths.find(p => p.endsWith('.json')) || DB_PATH;
+      fs.writeFileSync(activePath, '{ corrupted json: true, [unclosed ', 'utf8');
+
+      // 3. Make API request - should recover, not crash, return 200
+      const res = await makeRequest('/api/disponibilidad?date=2026-10-06');
+      assert.strictEqual(res.status, 200, 'Server must handle request with 200 status');
+      assert.ok(res.body.success);
+
+      // 4. Verify file was reset to valid empty array JSON
+      const repairedData = fs.readFileSync(activePath, 'utf8');
+      const parsed = JSON.parse(repairedData);
+      assert.deepStrictEqual(parsed, [], 'Database file must be reset to an empty array');
+
+      // Clean up environment and restore default server state
+      delete process.env.FORCE_JSON_DB;
+      stopServerOnly();
+      await spawnServer(true);
+    });
+  });
 });
+
