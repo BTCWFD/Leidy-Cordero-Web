@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiropodia LC | Clínica de Podología y Quiropedia</title>
+    <meta name="description" content="Especialistas en el cuidado integral de tus pies. Ofrecemos tratamientos para uñas encarnadas, hongos, quiropedia clínica y estética. ¡Reserva tu cita hoy!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Quiropodia LC Logo" class="logo-img">
+            <span class="brand-name">Quiropodia LC</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+        </ul>
+        <a href="#contacto" class="btn-primary">Agendar Cita</a>
+    </nav>
+
+    <header id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Expertos en la <br><span class="highlight">Salud y Belleza</span><br>de tus pies</h1>
+            <p>Atención podológica profesional por Laidy Cordero. Tratamientos especializados para que camines con confianza y sin dolor.</p>
+            <div class="hero-buttons">
+                <a href="#contacto" class="btn-primary">Reserva Ahora</a>
+                <a href="#servicios" class="btn-secondary">Ver Servicios</a>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <!-- Placeholder for premium image -->
+            <div class="glass-card hero-glass">
+                <div class="stat">
+                    <span class="stat-number">+1000</span>
+                    <span class="stat-text">Pacientes Felices</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="servicios" class="services">
+        <h2>Nuestros Servicios Especializados de <span class="highlight">Podología</span></h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">👣</div>
+                <h3>Quiropedia Básica</h3>
+                <p>Limpieza profunda, corte correcto de uñas y remoción de durezas para unos pies saludables.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">🛡️</div>
+                <h3>Uñeros (Onicocriptosis)</h3>
+                <p>Tratamiento especializado y sin dolor para uñas encarnadas, previniendo infecciones.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">✨</div>
+                <h3>Estética del Pie</h3>
+                <p>Hidratación profunda, masajes y cuidado estético para que tus pies luzcan perfectos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" class="about">
+        <div class="about-content">
+            <h2>¿Por qué confiar la salud de tus pies a <span class="highlight">Quiropodia LC?</span></h2>
+            <p>Con años de experiencia en podología y quiropedia, mi misión es devolverle la salud y el bienestar a tus pies. Utilizo técnicas modernas y esterilización de grado médico para tu seguridad.</p>
+            <ul class="social-links">
+                <li><a href="https://www.instagram.com/quiropodialc" target="_blank" rel="noopener noreferrer">Instagram (@quiropodialc)</a></li>
+                <li><a href="https://www.tiktok.com/@quiropodialady" target="_blank" rel="noopener noreferrer">TikTok (@quiropodialady)</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact">
+        <div class="contact-card glass-card">
+            <h2>Agenda tu <span class="highlight">Cita</span></h2>
+            <p style="text-align: center; margin-bottom: 1.5rem; color: var(--text-light);">
+                📱 Escríbenos al <strong><a href="https://wa.me/3204781811" target="_blank" style="color: var(--primary-color); text-decoration: none;">320 478 1811</a></strong> o llena este formulario:
+            </p>
+            <form id="contactForm">
+                <div class="input-group">
+                    <label for="name">Nombre Completo</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">Teléfono / WhatsApp</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="input-group">
+                    <label for="service">Servicio de Interés</label>
+                    <select id="service">
+                        <option>Quiropedia Básica</option>
+                        <option>Tratamiento de Uñeros</option>
+                        <option>Estética y Masaje</option>
+                        <option>Consulta General</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary btn-block">Solicitar Cita</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Quiropodial - Laidy Cordero. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
