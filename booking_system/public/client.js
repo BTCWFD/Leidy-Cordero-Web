@@ -74,7 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
           slotsContainer.appendChild(btn);
         });
       } else {
-        slotsContainer.innerHTML = `<p class="error-text">Error: ${data.error || 'No se pudieron cargar los horarios.'}</p>`;
+        const p = document.createElement('p');
+        p.className = 'error-text';
+        p.textContent = `Error: ${data.error || 'No se pudieron cargar los horarios.'}`;
+        slotsContainer.appendChild(p);
       }
     } catch (err) {
       console.error(err);
@@ -124,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await response.json();
       if (response.ok && data.success) {
-        feedbackMsg.innerHTML = `<strong>¡Cita reservada con éxito!</strong><br>Código de reserva: <span class="booking-id-badge">${data.bookingId}</span>`;
+        feedbackMsg.textContent = `¡Cita reservada con éxito! Código de reserva: ${data.bookingId}`;
         feedbackMsg.classList.add('success');
         feedbackMsg.classList.remove('hidden');
         

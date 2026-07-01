@@ -25,6 +25,14 @@ function initDb(dbPath) {
       sqliteDb = new sqlite3.Database(dbPath, (err) => {
         if (err) {
           console.warn('Failed to open SQLite database, falling back to JSON:', err.message);
+          if (sqliteDb) {
+            try {
+              sqliteDb.close();
+            } catch (closeErr) {
+              // Ignore close error on open failure
+            }
+            sqliteDb = null;
+          }
           setupJsonDb(dbPath);
           resolve();
         } else {
@@ -41,8 +49,17 @@ function initDb(dbPath) {
             )`,
             (err) => {
               if (err) {
-                console.error('Failed to create sqlite table:', err.message);
-                reject(err);
+                console.warn('Failed to create SQLite table, falling back to JSON:', err.message);
+                if (sqliteDb) {
+                  try {
+                    sqliteDb.close();
+                  } catch (closeErr) {
+                    console.warn('Error closing sqlite database:', closeErr.message);
+                  }
+                  sqliteDb = null;
+                }
+                setupJsonDb(dbPath);
+                resolve();
               } else {
                 dbMode = 'sqlite';
                 console.log(`SQLite database initialized successfully at: ${dbPath}`);
@@ -54,6 +71,14 @@ function initDb(dbPath) {
       });
     } catch (err) {
       console.warn('sqlite3 module not available or failed to load. Falling back to JSON database:', err.message);
+      if (sqliteDb) {
+        try {
+          sqliteDb.close();
+        } catch (closeErr) {
+          // Ignore
+        }
+        sqliteDb = null;
+      }
       setupJsonDb(dbPath);
       resolve();
     }
@@ -91,18 +116,26 @@ function getBookings(date) {
   } else {
     return new Promise((resolve, reject) => {
       try {
-        const data = fs.readFileSync(jsonDbPath, 'utf8');
-        let bookings;
+        let bookings = [];
         try {
+          const data = fs.readFileSync(jsonDbPath, 'utf8');
           bookings = JSON.parse(data);
-        } catch (parseErr) {
-          if (parseErr instanceof SyntaxError) {
-            console.warn('JSON database corrupted, resetting to empty array:', parseErr.message);
-            bookings = [];
-            fs.writeFileSync(jsonDbPath, JSON.stringify(bookings, null, 2), 'utf8');
-          } else {
-            throw parseErr;
+          if (!Array.isArray(bookings)) {
+            throw new TypeError('Database content is not an array');
           }
+          for (const b of bookings) {
+            if (!b || typeof b !== 'object' ||
+                typeof b.name !== 'string' ||
+                typeof b.date !== 'string' ||
+                typeof b.time !== 'string' ||
+                typeof b.phone !== 'string') {
+              throw new TypeError('Database element has invalid schema');
+            }
+          }
+        } catch (err) {
+          console.warn('JSON database file corrupted, resetting database:', err.message);
+          bookings = [];
+          fs.writeFileSync(jsonDbPath, JSON.stringify([], null, 2), 'utf8');
         }
         const filtered = bookings.filter(b => b.date === date);
         resolve(filtered);
@@ -140,18 +173,26 @@ function addBooking(booking) {
   } else {
     return new Promise((resolve, reject) => {
       try {
-        const data = fs.readFileSync(jsonDbPath, 'utf8');
-        let bookings;
+        let bookings = [];
         try {
+          const data = fs.readFileSync(jsonDbPath, 'utf8');
           bookings = JSON.parse(data);
-        } catch (parseErr) {
-          if (parseErr instanceof SyntaxError) {
-            console.warn('JSON database corrupted, resetting to empty array:', parseErr.message);
-            bookings = [];
-            fs.writeFileSync(jsonDbPath, JSON.stringify(bookings, null, 2), 'utf8');
-          } else {
-            throw parseErr;
+          if (!Array.isArray(bookings)) {
+            throw new TypeError('Database content is not an array');
           }
+          for (const b of bookings) {
+            if (!b || typeof b !== 'object' ||
+                typeof b.name !== 'string' ||
+                typeof b.date !== 'string' ||
+                typeof b.time !== 'string' ||
+                typeof b.phone !== 'string') {
+              throw new TypeError('Database element has invalid schema');
+            }
+          }
+        } catch (err) {
+          console.warn('JSON database file corrupted, resetting database:', err.message);
+          bookings = [];
+          fs.writeFileSync(jsonDbPath, JSON.stringify([], null, 2), 'utf8');
         }
         
         // Enforce uniqueness
@@ -187,18 +228,26 @@ function getAllBookings() {
   } else {
     return new Promise((resolve, reject) => {
       try {
-        const data = fs.readFileSync(jsonDbPath, 'utf8');
-        let bookings;
+        let bookings = [];
         try {
+          const data = fs.readFileSync(jsonDbPath, 'utf8');
           bookings = JSON.parse(data);
-        } catch (parseErr) {
-          if (parseErr instanceof SyntaxError) {
-            console.warn('JSON database corrupted, resetting to empty array:', parseErr.message);
-            bookings = [];
-            fs.writeFileSync(jsonDbPath, JSON.stringify(bookings, null, 2), 'utf8');
-          } else {
-            throw parseErr;
+          if (!Array.isArray(bookings)) {
+            throw new TypeError('Database content is not an array');
           }
+          for (const b of bookings) {
+            if (!b || typeof b !== 'object' ||
+                typeof b.name !== 'string' ||
+                typeof b.date !== 'string' ||
+                typeof b.time !== 'string' ||
+                typeof b.phone !== 'string') {
+              throw new TypeError('Database element has invalid schema');
+            }
+          }
+        } catch (err) {
+          console.warn('JSON database file corrupted, resetting database:', err.message);
+          bookings = [];
+          fs.writeFileSync(jsonDbPath, JSON.stringify([], null, 2), 'utf8');
         }
         bookings.sort((a, b) => {
           if (a.date !== b.date) {

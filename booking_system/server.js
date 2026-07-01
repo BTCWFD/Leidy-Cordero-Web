@@ -7,7 +7,38 @@ const PORT = process.env.PORT || 3000;
 const DATABASE_PATH = process.env.DATABASE_PATH || path.join(__dirname, 'database.sqlite');
 
 app.use(express.json());
+
+const basicAuth = (req, res, next) => {
+  const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
+  const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
+  if (login && password && login === 'admin' && password === 'admin123') {
+    return next();
+  }
+  res.set('WWW-Authenticate', 'Basic realm="Admin Panel"');
+  res.status(401).send('Authentication required.');
+};
+
+// Protect admin.html before serving static files
+app.use('/admin.html', basicAuth);
 app.use(express.static(path.join(__dirname, 'public')));
+
+function validatePhone(phone) {
+  if (typeof phone !== 'string') return false;
+  if (phone.includes('\n') || phone.includes('\r')) return false;
+  if (phone.length < 3 || phone.length > 50) return false;
+  // Allow digits, spaces, hyphens, parentheses, leading +, and optional extension
+  const phoneRegex = /^\+?[0-9\s\-()]+(?:\s*(?:ext|x|ext\.)\s*[0-9]+)?$/i;
+  if (!phoneRegex.test(phone)) return false;
+  const basePart = phone.split(/(?:ext|x|ext\.)/i)[0];
+  const digits = basePart.replace(/\D/g, '');
+  if (digits.length < 3 || digits.length > 15) return false;
+  
+  // Reject phone numbers that contain fewer than 3 digits (e.g., rejecting strings like "---")
+  const totalDigits = phone.replace(/\D/g, '');
+  if (totalDigits.length < 3) return false;
+  
+  return true;
+}
 
 // POST /api/reservas
 app.post('/api/reservas', async (req, res) => {
@@ -38,19 +69,37 @@ app.post('/api/reservas', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Invalid date values' });
     }
     const calendarDate = new Date(year, month - 1, day);
+    if (year < 100) {
+      calendarDate.setFullYear(year);
+    }
     if (calendarDate.getFullYear() !== year || 
         (calendarDate.getMonth() + 1) !== month || 
         calendarDate.getDate() !== day) {
       return res.status(400).json({ success: false, error: 'Invalid calendar date' });
     }
 
-    // Past Date check: compare date < new Date().toISOString().split('T')[0]
-    if (date < new Date().toISOString().split('T')[0]) {
+    // Past Date check
+    const d = new Date();
+    const localDateStr = [
+      d.getFullYear(),
+      String(d.getMonth() + 1).padStart(2, '0'),
+      String(d.getDate()).padStart(2, '0')
+    ].join('-');
+
+    let compareDate = date;
+    if (year < 100) {
+      compareDate = [
+        String(2000 + year).padStart(4, '0'),
+        dateParts[1],
+        dateParts[2]
+      ].join('-');
+    }
+    if (compareDate < localDateStr) {
       return res.status(400).json({ success: false, error: 'Booking date cannot be in the past' });
     }
 
-    // Phone number format validation: allow digits, spaces, hyphens, and leading +, limit length to 20
-    if (!/^\+?[0-9\s\-]{3,20}$/.test(phone)) {
+    // Phone number format validation
+    if (!validatePhone(phone)) {
       return res.status(400).json({ success: false, error: 'Invalid phone number format' });
     }
 
@@ -71,7 +120,7 @@ app.post('/api/reservas', async (req, res) => {
 });
 
 // GET /admin/citas
-app.get('/admin/citas', async (req, res) => {
+app.get('/admin/citas', basicAuth, async (req, res) => {
   try {
     let date = req.query.date;
     if (Array.isArray(date)) {

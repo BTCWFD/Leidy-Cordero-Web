@@ -82,16 +82,23 @@ Build and implement the clinic booking system matching requirements and interfac
 | challenger_m5_1 | teamwork_preview_challenger | Milestone 5 Adversarial Analysis | completed | fae978db-4b7c-41d6-81d7-18ef8ba92dc2 |
 | challenger_m5_2 | teamwork_preview_challenger | Milestone 5 Adversarial Analysis | completed | a178b304-67b5-4665-abe4-4197e0df58c1 |
 | worker_m5 | teamwork_preview_worker | Milestone 5 Adversarial Fixing | completed | 16aa146f-7d9b-4ad5-9d1f-70c7f561d5cf |
-| reviewer_m5_1 | teamwork_preview_reviewer | Milestone 5 Review | in-progress | 8fd42382-8d63-41ff-ac39-5f7195c7ec54 |
-| reviewer_m5_2 | teamwork_preview_reviewer | Milestone 5 Review | in-progress | db506e72-4645-4586-ba06-dda2908439d0 |
-| challenger_m5_3 | teamwork_preview_challenger | Milestone 5 Concurrency check | in-progress | 46143844-106d-4331-878e-0a2852876369 |
-| challenger_m5_4 | teamwork_preview_challenger | Milestone 5 Concurrency check | in-progress | befdb48f-fb22-4590-ab4b-ba8ecff4da15 |
-| auditor_m5 | teamwork_preview_auditor | Milestone 5 Integrity Audit | in-progress | 0db68b0d-3430-400e-b7a9-a53688de2214 |
+| reviewer_m5_1 | teamwork_preview_reviewer | Milestone 5 Review | completed | 8fd42382-8d63-41ff-ac39-5f7195c7ec54 |
+| reviewer_m5_2 | teamwork_preview_reviewer | Milestone 5 Review | completed | db506e72-4645-4586-ba06-dda2908439d0 |
+| challenger_m5_3 | teamwork_preview_challenger | Milestone 5 Concurrency check | completed | 46143844-106d-4331-878e-0a2852876369 |
+| challenger_m5_4 | teamwork_preview_challenger | Milestone 5 Concurrency check | failed | befdb48f-fb22-4590-ab4b-ba8ecff4da15 |
+| auditor_m5 | teamwork_preview_auditor | Milestone 5 Integrity Audit | failed | 0db68b0d-3430-400e-b7a9-a53688de2214 |
+| worker_m5_2 | teamwork_preview_worker | Milestone 5 Adversarial Fixing | completed | 8d903197-daeb-4921-81cc-7eb05683481c |
+| reviewer_m5_3 | teamwork_preview_reviewer | Milestone 5 Review | completed | 2e8ea0e2-b827-49c4-8814-2442e309e58d |
+| reviewer_m5_4 | teamwork_preview_reviewer | Milestone 5 Review | completed | 059b644f-bfd3-47c9-b011-284f3eec88d2 |
+| challenger_m5_5 | teamwork_preview_challenger | Milestone 5 Concurrency check | completed | 69e4c78d-6290-4bed-af36-db26ae3c7660 |
+| challenger_m5_6 | teamwork_preview_challenger | Milestone 5 Concurrency check | completed | e17770fd-5a8d-47f9-8b17-ee892a63b41a |
+| auditor_m5_rep | teamwork_preview_auditor | Milestone 5 Integrity Audit | completed | 49347f13-8533-4e64-ba5e-951faec14bcb |
+| worker_m5_cleanup | teamwork_preview_worker | Milestone 5 Hardening Cleanup | completed | bbeb7df2-822d-4f94-9388-657f9cce9d5c |
 
 ## Succession Status
 - Succession required: yes
-- Spawn count: 18 / 16
-- Pending subagents: 8fd42382-8d63-41ff-ac39-5f7195c7ec54, db506e72-4645-4586-ba06-dda2908439d0, 46143844-106d-4331-878e-0a2852876369, befdb48f-fb22-4590-ab4b-ba8ecff4da15, 0db68b0d-3430-400e-b7a9-a53688de2214
+- Spawn count: 25 / 16
+- Pending subagents: none
 - Predecessor: d0a1be54-3844-4847-a4d0-ba586ca4d067
 - Successor: not yet spawned
 

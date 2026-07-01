@@ -1,0 +1,1 @@
+# Explorer SEO metadata folder

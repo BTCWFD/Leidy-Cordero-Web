@@ -25,8 +25,8 @@ The system is built as a lightweight Node.js web application:
 | 2 | Backend & DB Setup | Initialize package, DB schema, express server structure, basic routes | None | DONE | 54848d25-c1ec-471c-92c8-bb0c259daf2a |
 | 3 | Patient Booking UI & API | Implement booking API post and patient form web UI | M2 | DONE | 54848d25-c1ec-471c-92c8-bb0c259daf2a |
 | 4 | Admin View UI & Endpoint | Implement administrative route and data presentation | M2 | DONE | 54848d25-c1ec-471c-92c8-bb0c259daf2a |
-| 5 | E2E Integration & Verification | Merge backend/frontend and verify all E2E test cases pass | M1, M3, M4 | IN_PROGRESS | 54848d25-c1ec-471c-92c8-bb0c259daf2a |
-| 6 | Adversarial Hardening | Coverage audit and robustness test against edge-cases | M5 | PLANNED | 54848d25-c1ec-471c-92c8-bb0c259daf2a |
+| 5 | E2E Integration & Verification | Merge backend/frontend and verify all E2E test cases pass | M1, M3, M4 | DONE | 9fefbc5f-3924-4b11-a677-e9a2fcc20b20 |
+| 6 | Adversarial Hardening | Coverage audit and robustness test against edge-cases | M5 | DONE | 9fefbc5f-3924-4b11-a677-e9a2fcc20b20 |
 
 ## Interface Contracts
 ### Booking API
