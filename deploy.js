@@ -20,14 +20,14 @@ async function deploy() {
         console.log("Conexión exitosa. Navegando a la carpeta de destino...");
         
         try {
-            await client.cd("public_html");
+            await client.cd("domains/moccasin-giraffe-493510.hostingersite.com/public_html");
         } catch (e) {
-            console.log("Nota: Estamos listos para subir archivos (probablemente el FTP ya nos ubicó dentro de public_html automáticamente).");
+            console.log("Error al navegar a la carpeta de destino. Verifica el nombre del dominio en Hostinger.");
         }
 
         console.log("Subiendo archivos...");
         
-        const filesToUpload = ["index.html", "style.css", "main.js", "logo.png"];
+        const filesToUpload = ["index.html", "style.css", "main.js", "logo.png", "robots.txt", "sitemap.xml"];
         
         for (const file of filesToUpload) {
             const localPath = path.join(__dirname, file);
