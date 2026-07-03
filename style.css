@@ -306,7 +306,7 @@ html {
     margin-bottom: 1rem;
 }
 
-.testimonial-card h4 {
+.testimonial-card .testimonial-author {
     color: var(--primary-color);
     font-weight: 600;
 }
