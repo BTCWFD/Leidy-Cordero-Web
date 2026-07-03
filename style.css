@@ -480,3 +480,77 @@ footer {
 
 .menu-toggle { display: none; }
 
+/* Estilos de Integración del Sistema de Reservas */
+.booking-tabs .tab-btn {
+    border: none;
+    outline: none;
+}
+
+.booking-tabs .tab-btn:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.08) !important;
+}
+
+.slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+    width: 100%;
+}
+
+.slot-btn {
+    padding: 0.6rem 0.4rem;
+    border: 1px solid #ddd;
+    background-color: var(--white);
+    color: var(--text-main);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.slot-btn:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(11, 59, 36, 0.05);
+    color: var(--primary-color);
+}
+
+.slot-btn.selected {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--white) !important;
+}
+
+.feedback-area {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feedback-area.hidden {
+    display: none;
+}
+
+.feedback-area.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #047857;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.feedback-area.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #b91c1c;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.feedback-area.loading {
+    background-color: rgba(212, 175, 55, 0.1);
+    color: #b58900;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}

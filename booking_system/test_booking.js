@@ -81,6 +81,15 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function makeRequest(endpoint, options = {}, port = PORT) {
   const url = `http://localhost:${port}${endpoint}`;
   try {
+    if (endpoint.startsWith('/admin')) {
+      if (!options.headers) {
+        options.headers = {};
+      }
+      if (!options.headers['Authorization'] && !options.headers['authorization']) {
+        const credentials = Buffer.from('admin:admin123').toString('base64');
+        options.headers['Authorization'] = `Basic ${credentials}`;
+      }
+    }
     const response = await fetch(url, options);
     const status = response.status;
     const contentType = response.headers.get('content-type') || '';
@@ -103,11 +112,20 @@ function cleanupDbFiles() {
   console.log(`[Test Harness] Cleaning up database files...`);
   const paths = getPossibleDbPaths(DB_PATH);
   for (const p of paths) {
-    if (fs.existsSync(p)) {
+    let attempts = 8;
+    while (attempts > 0 && fs.existsSync(p)) {
       try {
         fs.unlinkSync(p);
+        break;
       } catch (err) {
-        console.warn(`[Test Harness] Pre-cleanup warning for ${p}: ${err.message}`);
+        attempts--;
+        if (attempts === 0) {
+          console.warn(`[Test Harness] Pre-cleanup warning for ${p}: ${err.message}`);
+        } else {
+          // Synchronous sleep of 100ms
+          const start = Date.now();
+          while (Date.now() - start < 100) {}
+        }
       }
     }
   }
@@ -650,10 +668,11 @@ test.describe('Quiropodia LC Booking System E2E Suite', () => {
       for (let i = 1; i <= 20; i++) {
         const dayStr = String(i).padStart(2, '0');
         const date = `${baseDate}${dayStr}`;
+        const mockPhone = `32012345${dayStr}`;
         promises.push(makeRequest('/api/reservas', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: `Volume Patient ${i}`, date, time: '09:00', phone: `phone-${i}` })
+          body: JSON.stringify({ name: `Volume Patient ${i}`, date, time: '09:00', phone: mockPhone })
         }));
       }
 

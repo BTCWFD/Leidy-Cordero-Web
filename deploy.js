@@ -14,7 +14,7 @@ async function deploy() {
             user: process.env.FTP_USER,
             password: process.env.FTP_PASSWORD,
             secure: true,
-            secureOptions: { rejectUnauthorized: false }
+            secureOptions: { rejectUnauthorized: true }
         });
 
         console.log("Conexión exitosa. Navegando a la carpeta de destino...");
