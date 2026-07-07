@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const service = document.getElementById('service').value;
             
             const message = `Hola Quiropodia LC, mi nombre es ${name}, mi teléfono es ${phone} y me gustaría agendar una cita para el servicio de: ${service}.`;
-            const whatsappUrl = `https://wa.me/3204781811?text=${encodeURIComponent(message)}`;
+            const whatsappUrl = `https://wa.me/573204781811?text=${encodeURIComponent(message)}`;
             
             window.open(whatsappUrl, '_blank');
             
