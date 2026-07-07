@@ -68,6 +68,14 @@ html {
     color: var(--primary-color);
 }
 
+.menu-toggle {
+    display: none;
+}
+
+.mobile-only {
+    display: none;
+}
+
 .nav-links {
     display: flex;
     list-style: none;
@@ -164,7 +172,7 @@ html {
     flex: 1;
     position: relative;
     height: 500px;
-    background: url('hero_background.png') no-repeat center center;
+    background: url('hero_background.webp') no-repeat center center;
     background-size: cover;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     animation: blobMorph 8s infinite alternate;
@@ -511,9 +519,10 @@ footer {
     .social-links {
         justify-content: center;
     }
+    .mobile-only {
+        display: block;
+    }
 }
-
-.menu-toggle { display: none; }
 
 /* Estilos de Integración del Sistema de Reservas */
 .booking-tabs .tab-btn {

@@ -23,14 +23,14 @@ async function deploy() {
         console.log("Conexión exitosa. Navegando a la carpeta de destino...");
         
         try {
-            await client.cd("domains/moccasin-giraffe-493510.hostingersite.com/public_html");
+            await client.cd("/");
         } catch (e) {
-            console.log("Error al navegar a la carpeta de destino. Verifica el nombre del dominio en Hostinger.");
+            console.log("Error al navegar a la raíz del FTP.");
         }
 
         console.log("Subiendo archivos...");
         
-        const filesToUpload = ["index.html", "style.css", "main.js", "logo.png", "robots.txt", "sitemap.xml", "hero_background.png", "instagram_post_3.png"];
+        const filesToUpload = ["index.html", "style.css", "main.js", "logo.png", "robots.txt", "sitemap.xml", "hero_background.webp", "instagram_post_3.webp"];
         
         for (const file of filesToUpload) {
             const localPath = path.join(__dirname, file);
