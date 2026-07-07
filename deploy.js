@@ -30,7 +30,7 @@ async function deploy() {
 
         console.log("Subiendo archivos...");
         
-        const filesToUpload = ["index.html", "style.css", "main.js", "logo.png", "robots.txt", "sitemap.xml"];
+        const filesToUpload = ["index.html", "style.css", "main.js", "logo.png", "robots.txt", "sitemap.xml", "hero_background.png", "instagram_post_3.png"];
         
         for (const file of filesToUpload) {
             const localPath = path.join(__dirname, file);
