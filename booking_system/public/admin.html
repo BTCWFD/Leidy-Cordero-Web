@@ -78,7 +78,10 @@
             const tr = document.createElement('tr');
             
             const tdId = document.createElement('td');
-            tdId.innerHTML = `<span class="booking-id-badge">${app.id || 'N/A'}</span>`;
+            const spanId = document.createElement('span');
+            spanId.className = 'booking-id-badge';
+            spanId.textContent = String(app.id || 'N/A');
+            tdId.appendChild(spanId);
             
             const tdName = document.createElement('td');
             tdName.textContent = app.name || 'N/A';

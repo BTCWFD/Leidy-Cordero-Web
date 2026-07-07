@@ -192,7 +192,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     slotsContainer.appendChild(btn);
                 });
             } else {
-                slotsContainer.innerHTML = `<p class="error-text" style="grid-column: 1 / -1; color: #b91c1c; font-size: 0.9rem; text-align: center;">Error: ${data.error || 'No se pudieron cargar los horarios.'}</p>`;
+                slotsContainer.innerHTML = '';
+                const p = document.createElement('p');
+                p.className = 'error-text';
+                p.style.gridColumn = '1 / -1';
+                p.style.color = '#b91c1c';
+                p.style.fontSize = '0.9rem';
+                p.style.textAlign = 'center';
+                p.textContent = `Error: ${data.error || 'No se pudieron cargar los horarios.'}`;
+                slotsContainer.appendChild(p);
             }
         } catch (err) {
             console.error(err);
