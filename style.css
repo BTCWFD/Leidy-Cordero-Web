@@ -164,12 +164,14 @@ html {
     flex: 1;
     position: relative;
     height: 500px;
-    background: linear-gradient(135deg, var(--primary-light), var(--accent-color));
+    background: url('hero_background.png') no-repeat center center;
+    background-size: cover;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
     animation: blobMorph 8s infinite alternate;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: var(--shadow);
 }
 
 /* Glassmorphism Cards */
@@ -250,19 +252,41 @@ html {
 
 .about {
     background: var(--white);
+}
+
+.about-container {
     display: flex;
-    justify-content: center;
-    text-align: center;
+    align-items: center;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .about-content {
-    max-width: 800px;
+    flex: 1.2;
+    text-align: left;
+}
+
+.about-image {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.about-img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--glass-border);
 }
 
 .social-links {
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -475,6 +499,17 @@ footer {
     .hero-image-container {
         width: 100%;
         height: 350px;
+    }
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    .about-content {
+        text-align: center;
+    }
+    .social-links {
+        justify-content: center;
     }
 }
 
