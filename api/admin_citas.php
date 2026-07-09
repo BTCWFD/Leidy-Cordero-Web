@@ -4,12 +4,12 @@ require_once __DIR__ . '/database.php';
 
 // Auth credentials
 $expectedUser = 'admin';
-$expectedPass = 'admin123';
+$expectedHash = '$2y$10$sz7c8R/0H.L5K7e9gG8Pj.O4zQp1FvY7B5w06Z7iJ8Wy8C3Dk.r/9p';
 
 $user = $_SERVER['PHP_AUTH_USER'] ?? '';
 $pass = $_SERVER['PHP_AUTH_PW'] ?? '';
 
-if ($user !== $expectedUser || $pass !== $expectedPass) {
+if ($user !== $expectedUser || !password_verify($pass, $expectedHash)) {
     header('WWW-Authenticate: Basic realm="Admin Area"');
     http_response_code(401);
     echo "Authentication required.";

@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 slotsContainer.appendChild(p);
             }
         } catch (err) {
-            console.error(err);
+            // Silence verbose console logging
             slotsContainer.innerHTML = '<p class="error-text" style="grid-column: 1 / -1; color: #b91c1c; font-size: 0.9rem; text-align: center;">Error de comunicación. Intente de nuevo.</p>';
         }
     }
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     confirmBtn.disabled = false;
                 }
             } catch (err) {
-                console.error(err);
+                // Silence verbose console logging
                 feedbackMsg.textContent = 'Error de comunicación con el servidor. Intente más tarde.';
                 feedbackMsg.className = 'feedback-area error';
                 feedbackMsg.classList.remove('hidden');

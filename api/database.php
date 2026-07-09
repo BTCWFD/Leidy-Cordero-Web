@@ -6,6 +6,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 
+// HTTP Security Headers
+header('X-Frame-Options: DENY');
+header('X-Content-Type-Options: nosniff');
+header("Content-Security-Policy: default-src 'none';");
+
 // Handle preflight OPTIONS requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);

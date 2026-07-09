@@ -1,9 +1,18 @@
 RewriteEngine On
 
-# Block direct web downloads of SQLite database files
-<FilesMatch "\.sqlite$">
-    Order deny,allow
-    Deny from all
+# Force HTTPS redirection
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Block direct web downloads of SQLite database files, journals, and backups
+<FilesMatch "\.(sqlite|db|db-journal|sqlite-journal|sqlite-shm|sqlite-wal|sql|bak)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # Route API endpoints cleanly
