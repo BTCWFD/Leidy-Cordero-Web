@@ -193,11 +193,30 @@ html {
     padding: 2rem;
 }
 
-.hero-glass {
-    position: absolute;
-    bottom: 20px;
-    left: -20px;
-    padding: 1.5rem;
+.about-stat-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(11, 59, 36, 0.05);
+    border: 1px solid rgba(11, 59, 36, 0.1);
+    border-radius: 50px;
+    padding: 0.6rem 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.about-stat-card .stat-number {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    display: inline;
+}
+
+.about-stat-card .stat-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 .stat-number {
@@ -508,12 +527,7 @@ footer {
         width: 100%;
         height: 350px;
     }
-    .hero-glass {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        padding: 1rem 1.5rem;
-    }
+
     .about-container {
         flex-direction: column;
         text-align: center;
