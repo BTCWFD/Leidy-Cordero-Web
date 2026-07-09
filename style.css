@@ -508,6 +508,12 @@ footer {
         width: 100%;
         height: 350px;
     }
+    .hero-glass {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        padding: 1rem 1.5rem;
+    }
     .about-container {
         flex-direction: column;
         text-align: center;
