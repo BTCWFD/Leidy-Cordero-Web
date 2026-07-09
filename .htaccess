@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Block direct web downloads of SQLite database files
+<FilesMatch "\.sqlite$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>
+
+# Route API endpoints cleanly
+RewriteRule ^api/disponibilidad/?$ api/disponibilidad.php [L,QSA]
+RewriteRule ^api/reservas/?$ api/reservas.php [L,QSA]
+RewriteRule ^admin/citas/?$ api/admin_citas.php [L,QSA]
+
+# Route admin.html to admin.php as a fallback
+RewriteRule ^admin\.html$ admin.php [L]

@@ -75,9 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === INTEGRACIÓN SISTEMA DE RESERVAS ONLINE ===
     
-    // Configuración de endpoint base (vacío por defecto, redirige local en dev/GitHub Pages)
-    let API_BASE_URL = '';
-    if (window.location.hostname.includes('github.io') || window.location.protocol === 'file:') {
+    // Configuración de endpoint base (Hostinger backend)
+    let API_BASE_URL = 'https://moccasin-giraffe-493510.hostingersite.com';
+    if (window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1') || window.location.protocol === 'file:') {
         API_BASE_URL = 'http://localhost:3000';
     }
 
